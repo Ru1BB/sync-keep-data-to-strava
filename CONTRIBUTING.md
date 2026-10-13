@@ -1,33 +1,12 @@
-# 贡献指南
+# 贡献说明
 
-感谢你对本项目的关注！欢迎提交 Issue 和 Pull Request。
+先创建虚拟环境并安装 requirements.txt。提交前运行：
 
-## 如何贡献
+```bash
+python -m unittest discover -s tests -v
+node --check static/app.js
+```
 
-### 报告问题
+测试应使用隔离数据库和合成数据，不访问真实账号。不要提交 .env、账户令牌、密码、SSH 私钥、证书私钥、生产地址、数据库、运动轨迹或包含凭据的截图。
 
-1. 使用 GitHub Issues 提交问题
-2. 请提供以下信息：
-   - 设备型号和Android版本
-   - 问题复现步骤
-   - 相关日志（应用内一键复制）
-   - 截图（如有）
-
-### 提交代码
-
-1. Fork 本仓库
-2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交你的修改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 创建 Pull Request
-
-### 开发规范
-
-- 使用 Kotlin 编写代码
-- 遵循 Android 开发最佳实践
-- 添加适当的注释
-- 确保代码能通过编译
-
-## 许可证
-
-贡献的代码将采用与本项目相同的 MIT License。
+修改 Keep 接口时注明公开参考来源，并确认分页、时间单位、坐标转换和上传去重行为。不要通过测试自动上传真实运动。

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keep → Strava 同步</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="brand-mark">K<span>→</span>S</div>
+    <p class="eyebrow">个人运动同步</p>
+    <h1>登录同步面板</h1>
+    <p class="muted">你的平台令牌只保存在此服务器的加密数据库中。</p>
+    {% if error %}<div class="notice error">{{ error }}</div>{% endif %}
+    <form method="post" action="/login" class="stack">
+      <label for="password">网页密码</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required autofocus>
+      <button class="button primary" type="submit">登录</button>
+    </form>
+  </main>
+</body>
+</html>

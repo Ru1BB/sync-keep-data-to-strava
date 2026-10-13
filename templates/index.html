@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8fb">
+  <title>Keep → Strava 同步</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark small">K<span>→</span>S</span><span>运动同步</span></a>
+    <form method="post" action="/logout"><button class="text-button" type="submit">退出登录</button></form>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">KEEP → STRAVA</p>
+        <h1>把运动带到 Strava</h1>
+        <p class="muted">检查 Keep 最近两个月的跑步、骑行和徒步，预览后再确认上传。已成功同步的记录自动跳过。</p>
+      </div>
+      <div class="hero-icon" aria-hidden="true">↗</div>
+    </section>
+
+    <div id="global-notice" class="notice hidden" role="status"></div>
+
+    <section class="grid two">
+      <article class="card connection-card">
+        <div class="card-heading"><div><p class="eyebrow">数据来源</p><h2>Keep</h2></div><span id="keep-badge" class="badge">未连接</span></div>
+        <p class="muted">使用 Keep 登录令牌读取运动记录。密码只用于登录请求，不会保存。</p>
+        <form id="keep-login-form" class="stack compact">
+          <label for="keep-mobile">Keep 手机号</label>
+          <input id="keep-mobile" name="mobile" type="tel" autocomplete="username" placeholder="+86 手机号" required>
+          <label for="keep-password">Keep 密码</label>
+          <input id="keep-password" name="password" type="password" autocomplete="current-password" required>
+          <button class="button secondary" type="submit">连接 Keep</button>
+        </form>
+        <button id="keep-disconnect" class="text-button danger hidden" type="button">断开 Keep</button>
+      </article>
+
+      <article class="card connection-card">
+        <div class="card-heading"><div><p class="eyebrow">上传目标</p><h2>Strava</h2></div><span id="strava-badge" class="badge">未连接</span></div>
+        <p class="muted">通过 Strava 官方 OAuth 授权上传。连接只请求活动写入权限。</p>
+        <a id="strava-connect" class="button strava-button" href="/auth/strava">连接 Strava</a>
+        <button id="strava-disconnect" class="text-button danger hidden" type="button">断开 Strava</button>
+      </article>
+    </section>
+
+    <section class="card sync-card">
+      <div class="card-heading sync-heading"><div><p class="eyebrow">手动同步</p><h2>检查运动记录</h2></div><button id="check-button" class="button primary" type="button">检查 Keep</button></div>
+      <p id="history-range" class="muted">检查最近两个月的运动，选择并确认后才会上传。</p>
+      <div class="toolbar hidden" id="activity-toolbar">
+        <label class="select-all"><input id="select-all" type="checkbox"> 全选</label>
+        <span id="selection-count" class="muted">已选 0 条</span>
+        <button id="upload-button" class="button strava-button" type="button" disabled>确认上传到 Strava</button>
+      </div>
+      <div id="activity-list" class="activity-list empty-state">连接 Keep 后点击“检查 Keep”。</div>
+    </section>
+
+    <section class="card history-card">
+      <div class="card-heading"><div><p class="eyebrow">本机账本</p><h2>最近同步状态</h2></div><button id="reload-button" class="text-button" type="button">刷新</button></div>
+      <div id="history-list" class="history-list empty-state">还没有同步记录。</div>
+    </section>
+    <p class="footnote">Keep 接入使用非官方接口，变更时可能需要重新登录或更新适配。轨迹坐标会按中国境内 Keep 轨迹转换到 Strava 使用的坐标系。</p>
+  </main>
+  <dialog id="confirm-dialog" class="confirm-dialog">
+    <form method="dialog">
+      <p class="eyebrow">最后确认</p><h2>上传选中的运动？</h2>
+      <p id="confirm-copy" class="muted"></p>
+      <div class="dialog-actions"><button class="button secondary" value="cancel">再看看</button><button id="confirm-upload" class="button strava-button" value="confirm">确认上传</button></div>
+    </form>
+  </dialog>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
